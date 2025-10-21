@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Rehber App Altlık Haritası</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@9.2.4/ol.css" />
+  <style>
+    html, body, #map { margin: 0; padding: 0; height: 100vh; width: 100vw; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://cdn.jsdelivr.net/npm/ol@9.2.4/dist/ol.js"></script>
+  <script>
+    const rehberWms = new ol.layer.Tile({
+      source: new ol.source.TileWMS({
+        url: 'https://bulutkbs.gov.tr/KBSProxy/Rehber/wms',
+        params: {
+          'LAYERS': 'Rehber_Yeni_Servisler:parseller',
+          'FORMAT': 'image/png',
+          'TRANSPARENT': true,
+          'VERSION': '1.1.1'
+        },
+        crossOrigin: 'anonymous'
+      })
+    });
+    const map = new ol.Map({
+      target: 'map',
+      layers: [rehberWms],
+      view: new ol.View({
+        center: [0, 0],
+        zoom: 2
+      })
+    });
+  </script>
+</body>
+</html>
